@@ -183,11 +183,12 @@ def download_all(directory, pattern):
                     file_name = root+'/'+file
                     print("Starting to download ..." , file_name)
                     df = pd.read_csv(file_name)
-                    urls = df.iloc[3:,0].tail(2).values
+                    # urls = df.iloc[3:,0].tail(2).values
+                    urls = df.iloc[3:,0].values
                     # download 5 in parallel
                     results = ThreadPool(5).imap_unordered(download_url, urls)
                     for r in results:
                         print(r)   
 
-                    # time.sleep(np.random.randint(30,90))
+                    time.sleep(np.random.randint(30,90))
                     
