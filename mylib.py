@@ -7,6 +7,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 
+import time 
+
+import os 
+ 
+# Download Dir
+dir_path_download = os.path.abspath(os.getcwd())+'/download/'
+
+
 def getDriver(url): 
     # settings
     chromeOptions = webdriver.ChromeOptions()
