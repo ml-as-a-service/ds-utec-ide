@@ -12,7 +12,12 @@ We need to download information from https://visualizador.ide.uy/ideuy/core/load
 ```bash
 python run.py
 ```
+# Download
+We can change the parameter pattern = "GeoTIFF" for select with csv process.
 
+```bash
+python download.py
+```
 # Install ChromeDrive
  - See: https://chromedriver.chromium.org/getting-started
  - See: http://jonathansoma.com/lede/foundations-2018/classes/selenium/selenium-windows-install/

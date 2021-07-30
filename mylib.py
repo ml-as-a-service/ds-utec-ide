@@ -13,6 +13,9 @@ import os
 import numpy as np
 import pandas as pd
 
+import requests
+from multiprocessing.pool import ThreadPool
+
 # Download Dir
 dir_path_download = os.path.abspath(os.getcwd())+'/download/'
 dir_path_data = dir_path_download+'data/'
@@ -149,3 +152,42 @@ def explore(driver, current_level=levels):
 
         driver.find_element(By.LINK_TEXT, "Parent Directory").click() 
         time.sleep(2)    
+
+def download_url(url):
+    print("downloading: ",url)
+    dir_parent = create_folder_from_url(url, 'https://visualizador.ide.uy/descargas/datos/', dir_path_data)
+
+    file_name_start_pos = url.rfind("/") + 1
+    file_name = url[file_name_start_pos:]
+    file_name = dir_parent+'/'+file_name 
+    if not os.path.isfile(file_name):
+        print(" ---> Saving file to ",file_name)
+
+        r = requests.get(url, stream=True)
+        if r.status_code == requests.codes.ok:
+            with open(file_name, 'wb') as f:
+                for data in r:
+                    f.write(data)
+    else:
+        print(" ---> Already downloaded file ",file_name)
+
+    return url
+
+# https://www.quickprogrammingtips.com/python/how-to-download-multiple-files-concurrently-in-python.html
+def download_all(directory, pattern):
+    for root,dirs,files in os.walk(directory):
+        for file in files:
+            if file.endswith(".csv"):
+                if root.find(pattern) != -1:
+                    # print('File ', file, dirs, root)    
+                    file_name = root+'/'+file
+                    print("Starting to download ..." , file_name)
+                    df = pd.read_csv(file_name)
+                    urls = df.iloc[3:,0].tail(2).values
+                    # download 5 in parallel
+                    results = ThreadPool(5).imap_unordered(download_url, urls)
+                    for r in results:
+                        print(r)   
+
+                    # time.sleep(np.random.randint(30,90))
+                    
