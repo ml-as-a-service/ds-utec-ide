@@ -7,6 +7,11 @@ We need to download information from https://visualizador.ide.uy/ideuy/core/load
  - **Python**: is an interpreted high-level general-purpose programming language
  - **Javascript**: is a scripting or programming language that allows you to implement complex features on web pages  displaying timely content updates, interactive maps, animated 2D/3D graphics. It is the third layer of the layer cake of standard web technologies, two of which (HTML and CSS) we have covered in much more detail in other parts of the Learning Area.
 
+# Install
+
+```bash
+pip install -r requirements.txt 
+```
 # Run
 
 ```bash
