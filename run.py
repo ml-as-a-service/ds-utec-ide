@@ -6,4 +6,5 @@ driver = mylib.getDriver(url)
 
 mylib.getRootIframeSource(driver)
 
+mylib.explore(driver)
 driver.quit() 
