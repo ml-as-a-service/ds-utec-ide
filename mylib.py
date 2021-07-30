@@ -46,3 +46,19 @@ def getDriver(url):
     time.sleep(2)
     
     return driver
+
+
+def file_put_contents(filename, content):
+    with open(filename, 'w') as f_in: 
+        f_in.write(content)
+
+def file_get_contents(filename):
+    with open(filename, 'r') as f_in: 
+        return f_in.read()       
+
+def getRootIframeSource(driver):
+    time.sleep(5)
+    driver.switch_to.frame(0)
+    print("Save root iframe content")
+    file_put_contents(dir_path_download+'/iframeRoot.html',driver.page_source)
+
